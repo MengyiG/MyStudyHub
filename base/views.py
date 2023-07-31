@@ -18,5 +18,14 @@ def home(request):
     return render(request, "base/home.html", context)
 
 
-def room(request):
-    return render(request, "base/room.html")
+def room(request, pk):
+    room = None
+    for i in rooms:
+        if i["id"] == int(pk):
+            room = i
+    # create a context dictionary with the room variable
+    # and pass it to the room template
+    # the template will be able to access the room variable
+    context = {"room": room}
+    # use the render function to create an HTTP response
+    return render(request, "base/room.html", context)
