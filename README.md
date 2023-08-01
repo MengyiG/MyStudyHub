@@ -1,12 +1,18 @@
 # MyStudyHub
 
+Build a discord-like application with Python Django.
+
+A finished app should be like
+
+![MyStudyHub App Pic](/app%20glimpse.jpg)
+
 Project in progress. Details of this project will be added soon.
 
 ---
 
 ### Highlights
 
-> Django, Python.
+> Django, Python, JavaScript.
 
 Know more about **me** by
 
