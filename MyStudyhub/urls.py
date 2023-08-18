@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+# urlpatterns is a list of paths, each path is a tuple, the first element is the path, the second element is the view function
 
 urlpatterns = [
     path('admin/', admin.site.urls),
