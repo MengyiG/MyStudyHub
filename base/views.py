@@ -1,13 +1,16 @@
 from django.shortcuts import render
+from .models import Room
 
-rooms = [
-    {"id": 1, "name": "Let's learn Python"},
-    {"id": 2, "name": "Designing a Django app"},
-    {"id": 3, "name": "Frontend development"},
-]
+# rooms = [
+#     {"id": 1, "name": "Let's learn Python"},
+#     {"id": 2, "name": "Designing a Django app"},
+#     {"id": 3, "name": "Frontend development"},
+# ]
 
 
 def home(request):
+    # variable that holds response = model name.model objects attributes
+    rooms = Room.objects.all()
     context = {"rooms": rooms}
     # use the render function to create an HTTP response
     # containing the template home.html
@@ -19,10 +22,7 @@ def home(request):
 
 
 def room(request, pk):
-    room = None
-    for i in rooms:
-        if i["id"] == int(pk):
-            room = i
+    room = Room.objects.get(id=pk)
     # create a context dictionary with the room variable
     # and pass it to the room template
     # the template will be able to access the room variable
