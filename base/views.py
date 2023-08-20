@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from .models import Room, Topic
+from .models import Room, Topic, Message
 from .forms import RoomForm
 
 # rooms = [
@@ -95,10 +95,25 @@ def home(request):
 
 def room(request, pk):
     room = Room.objects.get(id=pk)
+    # fetch all the messages from the database
+    room_messages = room.message_set.all().order_by("-created")
+
+    participants = room.participants.all()
+
+    if request.method == "POST":
+        messages = Message.objects.create(
+            user=request.user,
+            room=room,
+            body=request.POST.get("body")
+        )
+        room.participants.add(request.user)
+        return redirect("room", pk=room.id)
+
     # create a context dictionary with the room variable
     # and pass it to the room template
     # the template will be able to access the room variable
-    context = {"room": room}
+    context = {"room": room, "room_messages": room_messages,
+               "participants": participants}
     # use the render function to create an HTTP response
     return render(request, "base/room.html", context)
 
