@@ -10,8 +10,12 @@ from .forms import RoomForm
 
 
 def home(request):
+    # if the user searches for a topic, the q variable will hold the search query
+    # if the user doesn't search for a topic, the q variable will be an empty string
+    # then all the rooms will be fetched from the database
+    q = request.GET.get("q") if request.GET.get("q") != None else ""
     # variable that holds response = model name.model objects attributes
-    rooms = Room.objects.all()
+    rooms = Room.objects.filter(topic__name__icontains=q)
     # TODO: filter the most popular topics
     topics = Topic.objects.all()
     context = {"rooms": rooms, "topics": topics}
