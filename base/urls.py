@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
     path('login/', views.loginPage, name='login'),
     path('logout/', views.logoutUser, name='logout'),
+    path('register/', views.registerUser, name='register'),
 
     path('', views.home, name='home'),
     # the <str:pk> part of the URL is a path converter
