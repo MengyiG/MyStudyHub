@@ -4,9 +4,12 @@
 
 <h1>home template</h1>
 <div>
+    <!-- generate a URL based on the URL pattern named 'create-room' -->
+    <a href="{% url 'create-room' %}">Create Room</a>
     <div>
         {% for room in rooms %}
         <div>
+            <a href="{% url 'update-room' room.id %}">Edit</a>
             <span> username @{{room.host.username}}</span>
             <h5>
                 <!-- {{ room.id}} -- <a href="/room/{{room.id}}">{{ room.name }} </a> -->

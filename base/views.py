@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Room
+from .forms import RoomForm
 
 # rooms = [
 #     {"id": 1, "name": "Let's learn Python"},
@@ -29,3 +30,42 @@ def room(request, pk):
     context = {"room": room}
     # use the render function to create an HTTP response
     return render(request, "base/room.html", context)
+
+
+def createRoom(request):
+    form = RoomForm()
+    if request.method == "POST":
+        # we use form = RoomForm(request.POST) to create a form instance
+        # that is bound to the POST data, add the data to the form
+        form = RoomForm(request.POST)
+        # check if the form is valid
+        if form.is_valid():
+            # save the form data to the database
+            form.save()
+            # redirect the user to the home page
+            return redirect('home')
+    context = {'form': form}
+    return render(request, "base/room_form.html", context)
+
+
+# the updateRoom view function will be used to update a room
+# it will take a request and a pk parameter
+# the pk parameter will be used to fetch the room from the database
+
+
+def updateRoom(request, pk):
+    room = Room.objects.get(id=pk)
+    # this form will be pre-populated with the data from the room instance
+    form = RoomForm(instance=room)
+
+    if request.method == "POST":
+        # we use form = RoomForm(request.POST, instance=room) to create a form instance
+        # that is bound to the POST data, add the data to the form
+        # and tell which room instance to update
+        form = RoomForm(request.POST, instance=room)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+
+    context = {'form': form}
+    return render(request, "base/room_form.html", context)
