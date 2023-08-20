@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.db.models import Q
 from .models import Room, Topic
 from .forms import RoomForm
 
@@ -15,10 +16,13 @@ def home(request):
     # then all the rooms will be fetched from the database
     q = request.GET.get("q") if request.GET.get("q") != None else ""
     # variable that holds response = model name.model objects attributes
-    rooms = Room.objects.filter(topic__name__icontains=q)
+    rooms = Room.objects.filter(
+        Q(topic__name__icontains=q) | Q(name__icontains=q) | Q(description__icontains=q))
     # TODO: filter the most popular topics
     topics = Topic.objects.all()
-    context = {"rooms": rooms, "topics": topics}
+    room_count = rooms.count()
+    context = {"rooms": rooms, "topics": topics, "room_count": room_count}
+
     # use the render function to create an HTTP response
     # containing the template home.html
     # and pass the rooms variable to the template
