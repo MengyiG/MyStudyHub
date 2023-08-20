@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Room
+from .models import Room, Topic
 from .forms import RoomForm
 
 # rooms = [
@@ -12,7 +12,9 @@ from .forms import RoomForm
 def home(request):
     # variable that holds response = model name.model objects attributes
     rooms = Room.objects.all()
-    context = {"rooms": rooms}
+    # TODO: filter the most popular topics
+    topics = Topic.objects.all()
+    context = {"rooms": rooms, "topics": topics}
     # use the render function to create an HTTP response
     # containing the template home.html
     # and pass the rooms variable to the template
