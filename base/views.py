@@ -38,6 +38,11 @@ def loginPage(request):
     return render(request, "base/login_register.html", context)
 
 
+def logoutUser(request):
+    logout(request)
+    return redirect('home')
+
+
 def home(request):
     # if the user searches for a topic, the q variable will hold the search query
     # if the user doesn't search for a topic, the q variable will be an empty string
