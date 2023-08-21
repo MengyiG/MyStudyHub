@@ -82,7 +82,11 @@ def home(request):
     # TODO: filter the most popular topics
     topics = Topic.objects.all()
     room_count = rooms.count()
-    context = {"rooms": rooms, "topics": topics, "room_count": room_count}
+
+    room_messages = Message.objects.all
+
+    context = {"rooms": rooms, "topics": topics,
+               "room_count": room_count, "room_messages": room_messages}
 
     # use the render function to create an HTTP response
     # containing the template home.html
@@ -96,7 +100,7 @@ def home(request):
 def room(request, pk):
     room = Room.objects.get(id=pk)
     # fetch all the messages from the database
-    room_messages = room.message_set.all().order_by("-created")
+    room_messages = room.message_set.all()
 
     participants = room.participants.all()
 
