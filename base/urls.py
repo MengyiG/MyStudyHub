@@ -12,6 +12,7 @@ urlpatterns = [
     # (except for the / character, which separates path segments).
     # The matched string will be stored in the pk variable
     path('room/<str:pk>/', views.room, name='room'),
+    path('profile/<str:pk>/', views.userProfile, name='user-profile'),
 
     path('create-room/', views.createRoom, name='create-room'),
     path('update-room/<str:pk>/', views.updateRoom, name='update-room'),
