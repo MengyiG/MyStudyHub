@@ -1,6 +1,8 @@
 {% extends 'main.html' %}
 
 {% block content %}
+{% load static %}
+
 <main class="profile-page layout layout--3">
     <div class="container">
         <!-- Topics Start -->
@@ -12,14 +14,14 @@
             <div class="profile">
                 <div class="profile__avatar">
                     <div class="avatar avatar--large active">
-                        <img src="{{user.avatar.url}}" />
+                        <!-- <img src="{{user.avatar.url}}" /> -->
+                        <img src="{% static 'images/avatar.svg' %}" />
                     </div>
                 </div>
                 <div class="profile__info">
                     <h3>{{user.name}}</h3>
                     <p>@{{user.username}}</p>
                     {% if request.user == user %}
-                    <!-- TODO -->
                     <a href="{% url 'update-user' %}" class="btn btn--main btn--pill">Edit Profile</a>
                     {% endif %}
                 </div>
@@ -33,7 +35,7 @@
 
             <div class="roomList__header">
                 <div>
-                    <h2>Study Rooms Hosted by {{user.username}}</a>
+                    <h2> Rooms Hosted by {{user.username}}</a>
                     </h2>
                 </div>
             </div>
