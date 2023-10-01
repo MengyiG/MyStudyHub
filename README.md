@@ -14,6 +14,10 @@ Project in progress. Details of this project will be added from time to time.
 
 ---
 
+### MVT Design Pattern
+
+![Design Pattern Pic](/static/images/MVT.png)
+
 ### Users can make use of this app
 
 - register and log in as users
