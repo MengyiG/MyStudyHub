@@ -1,6 +1,9 @@
 from django.urls import path
 from . import views
 
+# urlpatterns is a list of paths, each path is a tuple, the first element is the path
+# the second element is the view function
+# it determines which view function to call based on the URL requested
 urlpatterns = [
     path('login/', views.loginPage, name='login'),
     path('logout/', views.logoutUser, name='logout'),

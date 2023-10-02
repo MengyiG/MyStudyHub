@@ -17,10 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-# urlpatterns is a list of paths, each path is a tuple, the first element is the path, the second element is the view function
+# urlpatterns is a list of paths, each path is a tuple,
+# the first element is the path, the second element is the view function
 
 urlpatterns = [
+    # this is django's built-in admin site to manage the database
     path('admin/', admin.site.urls),
-    # whenever an empty string is requested, it will be redirected to base.urls
+    # whenever an empty string is requested, use the include function and redirect to base.urls
     path('', include("base.urls")),
 ]

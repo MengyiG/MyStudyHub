@@ -116,6 +116,9 @@ def room(request, pk):
     # create a context dictionary with the room variable
     # and pass it to the room template
     # the template will be able to access the room variable
+    # the key-value pairs in the context dictionary
+    # key is the name of the variable that will be used in the template
+    # value is the value of the variable, which is what we are pssing in
     context = {"room": room, "room_messages": room_messages,
                "participants": participants}
     # use the render function to create an HTTP response
@@ -218,5 +221,5 @@ def updateUser(request):
         if form.is_valid():
             form.save()
             return redirect('user-profile', pk=user.id)
-        
+
     return render(request, "base/update-user.html", {'form': form})
