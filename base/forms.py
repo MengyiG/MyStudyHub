@@ -5,8 +5,10 @@ from django.contrib.auth.models import User
 
 class RoomForm(ModelForm):
     class Meta:
+        # create a form based on the Room model
         model = Room
         fields = '__all__'
+        # exclude the fields that are not editable
         exclude = ['host', 'participants']
 
 

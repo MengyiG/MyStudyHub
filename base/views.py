@@ -141,7 +141,7 @@ def createRoom(request):
     form = RoomForm()
     if request.method == "POST":
         # we use form = RoomForm(request.POST) to create a form instance
-        # that is bound to the POST data, add the data to the form
+        # that is bound to the POST data before adding the data to the form
         form = RoomForm(request.POST)
         # check if the form is valid
         if form.is_valid():
