@@ -6,7 +6,9 @@
 
 Build a discord-like application with Python Django. The finished app has been deployed to AWS via EC2 Instance Connect, which could be accessed by:
 
-http://3.80.113.38:8000/
+http://3.80.113.38:8000/ 
+
+-currently not working becuase I terminated the instance. 
 
 A 👀 glimpse of the app:
 
