@@ -177,7 +177,7 @@ def deteleRoom(request, pk):
     if request.method == "POST":
         room.delete()
         return redirect('home')
-    return render(request, "base/delete.html", {'obj': 'room'})
+    return render(request, "base/delete.html", {'obj': room})
 
 
 @login_required(login_url='login')
@@ -190,7 +190,7 @@ def deteleMessage(request, pk):
     if request.method == "POST":
         message.delete()
         return redirect('home')
-    return render(request, "base/delete.html", {'obj': 'message'})
+    return render(request, "base/delete.html", {'obj': message})
 
 
 @login_required(login_url='login')
@@ -199,9 +199,6 @@ def updateUser(request):
     form = UserForm(instance=request.user)
 
     if request.method == "POST":
-        # we use form = UserForm(request.POST, instance=user) to create a form instance
-        # that is bound to the POST data, add the data to the form
-        # and tell which user instance to update
         form = UserForm(request.POST, instance=user)
         if form.is_valid():
             form.save()
