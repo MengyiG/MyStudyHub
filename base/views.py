@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.db.models import Q
+from django.db.models import Q, Count
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -66,34 +66,32 @@ def registerUser(request):
 
 
 def home(request):
-    # if the user searches for a topic, the q variable will hold the search query
-    # if the user doesn't search for a topic, the q variable will be an empty string
-    # then all the rooms will be fetched from the database
     q = request.GET.get("q") if request.GET.get("q") != None else ""
-    # variable that holds response = model name.model objects attributes
     rooms = Room.objects.filter(
         Q(topic__name__icontains=q) | Q(name__icontains=q) | Q(description__icontains=q))
-    # TODO: filter the most popular topics
-    topics = Topic.objects.all()
-    room_count = rooms.count()
 
+    # Get all topics and annotate them with the number of rooms
+    topics = Topic.objects.annotate(
+        num_rooms=Count('room')).order_by('-num_rooms')
+
+    # Delete topics with zero count
+    zero_count_topics = topics.filter(num_rooms=0)
+    zero_count_topics.delete()
+
+    # Refresh topics queryset after deletion
+    topics = Topic.objects.annotate(
+        num_rooms=Count('room')).order_by('-num_rooms')
+
+    room_count = rooms.count()
     room_messages = Message.objects.filter(Q(room__topic__name__icontains=q))
 
     context = {"rooms": rooms, "topics": topics,
                "room_count": room_count, "room_messages": room_messages}
-
-    # use the render function to create an HTTP response
-    # containing the template home.html
-    # and pass the rooms variable to the template
-
-    # The purpose of this code is to handle an HTTP request
-    # fetch the appropriate template ("home.html"), and render it with the provided context data.
     return render(request, "base/home.html", context)
 
 
 def room(request, pk):
     room = Room.objects.get(id=pk)
-    # fetch all the messages from the database
     room_messages = room.message_set.all()
 
     participants = room.participants.all()
@@ -107,12 +105,6 @@ def room(request, pk):
         room.participants.add(request.user)
         return redirect("room", pk=room.id)
 
-    # create a context dictionary with the room variable
-    # and pass it to the room template
-    # the template will be able to access the room variable
-    # the key-value pairs in the context dictionary
-    # key is the name of the variable that will be used in the template
-    # value is the value of the variable, which is what we are pssing in
     context = {"room": room, "room_messages": room_messages,
                "participants": participants}
     # use the render function to create an HTTP response
