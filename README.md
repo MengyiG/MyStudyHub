@@ -6,35 +6,34 @@
 
 Build a discord-like application with Python Django.
 
-A finished app should be like
+A 👀 glimpse of the app:
 
 ![MyStudyHub App Pic](/app%20glimpse.jpg)
-
-Project in progress. Details of this project will be added from time to time.
-
----
 
 ### MVT Design Pattern
 
 ![Design Pattern Pic](/static/images/MVT.png)
 
-### Users can make use of this app
+### Users of this app can
 
 - register and log in as users
 - create a chat room
 - send questions and follow-ups in a chat room
-- filter room by topics
+- browse room by topics
 - search rooms by keyword
 - check user profiles
 - check most recent activity feed
 - edit user account page
-- TBD
 
----
+#### An customized RESTful API was built to fetch data of the rooms.
+
+![MyStudyHub App Pic](/static/images/REST-getRoom.png)
 
 ### Highlights
 
-> Django, Python, Django REST Framework, SQLite, JavaScript, HTML.
+> Django, Python, Django REST Framework, Authenitication, SQLite, JavaScript, HTML.
+
+This app is inspired by the [StudyBud](https://github.com/divanov11/StudyBud) app built by [Dennis Ivy](https://www.linkedin.com/in/dennis-ivanov/).
 
 ### Interesting Facts About Django :guitar:
 
