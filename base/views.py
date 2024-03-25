@@ -215,5 +215,6 @@ def topicsPage(request):
 
 
 def activityPage(request):
+    # TODO: check if all messages are being displayed
     room_messages = Message.objects.all()
     return render(request, "base/activity.html", {"room_messages": room_messages})
