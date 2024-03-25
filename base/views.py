@@ -79,8 +79,9 @@ def home(request):
     zero_count_topics.delete()
 
     # Refresh topics queryset after deletion
+    # Get only the first 8 topics
     topics = Topic.objects.annotate(
-        num_rooms=Count('room')).order_by('-num_rooms')
+        num_rooms=Count('room')).order_by('-num_rooms')[0:8]
 
     room_count = rooms.count()
     room_messages = Message.objects.filter(Q(room__topic__name__icontains=q))
@@ -211,3 +212,8 @@ def topicsPage(request):
     q = request.GET.get("q") if request.GET.get("q") != None else ""
     topics = Topic.objects.filter(name__icontains=q)
     return render(request, "base/topics.html", {"topics": topics})
+
+
+def activityPage(request):
+    room_messages = Message.objects.all()
+    return render(request, "base/activity.html", {"room_messages": room_messages})
