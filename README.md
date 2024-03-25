@@ -4,7 +4,9 @@
 
 ## This is a resource hub built for [Women In Tech](https://accesemployment.ca/programs/programs-for-women/women-in-technology) mentors, mentees, guest speakers and alumni to share job-hunting, tech learning, and program-specific resources for effective communication.
 
-Build a discord-like application with Python Django.
+Build a discord-like application with Python Django. The finished app has been deployed to AWS via EC2 Instance Connect, which could be accessed by:
+
+http://3.80.113.38:8000/
 
 A 👀 glimpse of the app:
 
@@ -31,9 +33,27 @@ A 👀 glimpse of the app:
 
 ### Highlights
 
-> Django, Python, Django REST Framework, Authenitication, SQLite, JavaScript, HTML.
+> Django, Python, Django REST Framework, AWS EC2 Instance Connect, Authenitication, SQLite, JavaScript, HTML.
 
-This app is inspired by the [StudyBud](https://github.com/divanov11/StudyBud) app built by [Dennis Ivy](https://www.linkedin.com/in/dennis-ivanov/).
+### Deployment
+In order to deploy this app to AWS, please note to
+- set up EC2 instance in AWS
+- launch the app via EC2 Instance Connect. 
+    - update the system via ` sudo apt-get update `
+    - get this repo via ` git clone `
+    - go to the repo's directory
+    - install pip ` sudo apt install python3-pip -y `
+    - download django using pip ` pip install django `
+    - install Django REST Framework ` pip3 install djangorestframework `
+    - install CORS header ` python -m pip install django-cors-headers `
+    - make migrations of this app ` python3 manage.py makemigrations `
+    - apply the migrations ` python3 manage.py migrate `
+    - start the server `python3 manage.py runserver 0.0.0.0:8000`
+- set up EC2 security group inbound rules to allow the traffic
+
+Voilà! 👏 The app is deployed via AWS EC2. 
+
+❤️ This app is inspired by the [StudyBud](https://github.com/divanov11/StudyBud) app built by [Dennis Ivy](https://www.linkedin.com/in/dennis-ivanov/).
 
 ### Interesting Facts About Django :guitar:
 
