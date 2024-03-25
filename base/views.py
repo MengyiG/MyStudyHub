@@ -9,12 +9,6 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import Room, Topic, Message
 from .forms import RoomForm, UserForm
 
-# rooms = [
-#     {"id": 1, "name": "Let's learn Python"},
-#     {"id": 2, "name": "Designing a Django app"},
-#     {"id": 3, "name": "Frontend development"},
-# ]
-
 
 def loginPage(request):
     page = 'login'
@@ -139,20 +133,18 @@ def userProfile(request, pk):
 @login_required(login_url='login')
 def createRoom(request):
     form = RoomForm()
+    topics = Topic.objects.all()
     if request.method == "POST":
-        # we use form = RoomForm(request.POST) to create a form instance
-        # that is bound to the POST data before adding the data to the form
-        form = RoomForm(request.POST)
-        # check if the form is valid
-        if form.is_valid():
-            # save the form data to the database
-            room = form.save(commit=False)
-            # set the host of the room to the current user
-            room.host = request.user
-            room.save()
-            # redirect the user to the home page
-            return redirect('home')
-    context = {'form': form}
+        topic_name = request.POST.get("topic")
+        topic, created = Topic.objects.get_or_create(name=topic_name)
+        Room.objects.create(
+            host=request.user,
+            topic=topic,
+            name=request.POST.get("name"),
+            description=request.POST.get("description")
+        )
+        return redirect('home')
+    context = {'form': form, 'topics': topics}
     return render(request, "base/room_form.html", context)
 
 
@@ -165,20 +157,21 @@ def updateRoom(request, pk):
     room = Room.objects.get(id=pk)
     # this form will be pre-populated with the data from the room instance
     form = RoomForm(instance=room)
-
+    topics = Topic.objects.all()
     if request.user != room.host:
         return HttpResponse("You are not allowed here")
 
     if request.method == "POST":
-        # we use form = RoomForm(request.POST, instance=room) to create a form instance
-        # that is bound to the POST data, add the data to the form
-        # and tell which room instance to update
-        form = RoomForm(request.POST, instance=room)
-        if form.is_valid():
-            form.save()
-            return redirect('home')
+        topic_name = request.POST.get("topic")
+        topic, created = Topic.objects.get_or_create(name=topic_name)
+        # this is the form that will be used to update the room
+        room.name = request.POST.get("name")
+        room.topic = topic
+        room.description = request.POST.get("description")
+        room.save()
+        return redirect('home')
 
-    context = {'form': form}
+    context = {'form': form, 'topics': topics, 'room': room}
     return render(request, "base/room_form.html", context)
 
 
