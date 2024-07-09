@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap");
 
 :root {
-  --color-main: #fcbaad;
+  --color-main: #cc693d;
   --color-main-light: #e1f6fb;
   --color-dark: #3f4156;
   --color-dark-medium: #51546e;
@@ -284,8 +284,8 @@ a {
 
 .header__logo > img {
   height: 6.2rem;
-  width: 6.2rem;
-  border-radius: 30%;
+  width: 16.2rem;
+  /* border-radius: 50%; */
 }
 
 .header__logo > h1 {

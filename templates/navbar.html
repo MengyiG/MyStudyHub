@@ -2,8 +2,11 @@
 <header class=" header header--loggedIn">
     <div class="container">
         <a href="{% url 'home' %}" class="header__logo">
-            <img src="{% static 'images/pink-circle-hi.png' %}" />
-            <h1>Women In Tech</h1>
+            <!-- <img src="{% static 'images/Simwell-logo.webp' %}" /> -->
+            <img src="https://www.simwell.io/hubfs/Website_2022/Images/simwell-logo-white.svg" class="hs-image-widget "
+                height="122" style="height: auto;width:158px;border-width:0px;border:0px;" width="158"
+                alt="Simwell Logo" title="Simwell Logo">
+            <h3>Digitalize Your Operations with Simulation</h3>
         </a>
         <form class="header__search" method="GET" action="{% url 'home' %}">
             <label>
