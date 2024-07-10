@@ -39,6 +39,34 @@ def loginPage(request):
     return render(request, "base/login_register.html", context)
 
 
+# below is the class-based view for the login page
+# in this app, we mainly use function-based views as the project is small
+# class LoginPageView(View):
+#     def get(self, request):
+#         if request.user.is_authenticated:
+#             return redirect('home')
+#         return render(request, 'base/login_register.html', {'page': 'login'})
+
+#     def post(self, request):
+#         username = request.POST.get("username").lower()
+#         password = request.POST.get("password")
+
+#         try:
+#             user = User.objects.get(username=username)
+#         except:
+#             messages.error(request, "Username does not exist")
+
+#         user = authenticate(request, username=username, password=password)
+
+#         if user is not None:
+#             login(request, user)
+#             return redirect('home')
+#         else:
+#             messages.error(request, "Username OR password is incorrect")
+
+#         return render(request, 'base/login_register.html', {'page': 'login'})
+
+
 def logoutUser(request):
     logout(request)
     return redirect('home')
